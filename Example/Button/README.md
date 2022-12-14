@@ -1,4 +1,4 @@
-# # Thiết kế mạch điều khiển LED bằng BUTTON
+# Thiết kế mạch điều khiển LED bằng BUTTON
 ### Linh kiện
 Tên linh kiện | Số lượng
 :---: | :---:
