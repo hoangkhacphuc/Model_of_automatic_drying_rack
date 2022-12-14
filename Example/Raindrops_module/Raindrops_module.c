@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <wiringPi.h>
 
 #define Raindrops_module 2
@@ -12,13 +11,12 @@ int main(void){
 	for(;;){
 		if(digitalRead(Raindrops_module) == HIGH){
             digitalWrite(Led, HIGH);
-            printf("Raindrops_module is not detected\n");
+            printf("Raindrops_module is not detected");
         }
         else{
             digitalWrite(Led, LOW);
-            printf("Raindrops_module is detected\n");
+            printf("Raindrops_module is detected");
         }
-        delay(500);
 	}
 	return 0;
 }
