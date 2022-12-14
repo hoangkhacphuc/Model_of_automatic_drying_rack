@@ -1,23 +1,14 @@
-#include <stdio.h>
 #include <wiringPi.h>
 
-#define Raindrops_module 2
-#define Led 0
+#define LED 13
 
 int main(void){
 	wiringPiSetup();
-	pinMode(Raindrops_module, INPUT);
-    pinMode(Led, OUTPUT);
-
+	pinMode(LED, OUTPUT);
 	for(;;){
-		if(digitalRead(Raindrops_module) == HIGH){
-            digitalWrite(Led, HIGH);
-            printf("Raindrops_module is not detected\n");
-        }
-        else{
-            digitalWrite(Led, LOW);
-            printf("Raindrops_module is detected\n");
-        }
+		digitalWrite(LED,HIGH);
+        delay(500);
+		digitalWrite(LED,LOW);
         delay(500);
 	}
 	return 0;
