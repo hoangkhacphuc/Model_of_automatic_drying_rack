@@ -66,10 +66,10 @@ void *handel(void *arg) {
     while (true) {
         if (isRaining() || isLight()) {
             onLED = 1;
-            cout << "ON" << endl;
+            cout << "ON\n";
         } else {
             onLED = 0;
-            cout << "OFF" << endl;
+            cout << "OFF\n";
         }
     }
 }
