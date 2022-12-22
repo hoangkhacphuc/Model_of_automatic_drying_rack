@@ -7,25 +7,47 @@
 #define LED2 2
 #define TIME_LED 500
 
-void *led()
+// void *led()
+// {
+//     while (true){
+// 		digitalWrite(LED,HIGH);
+//         delay(TIME_LED);
+// 		digitalWrite(LED,LOW);
+//         delay(TIME_LED);
+// 	}
+// }
+
+// void *led2()
+// {
+//     while (true){
+// 		digitalWrite(LED2,HIGH);
+//         delay(TIME_LED);
+// 		digitalWrite(LED2,LOW);
+//         delay(TIME_LED);
+// 	}
+// }
+
+void *led(void *arg)
 {
     while (true){
-		digitalWrite(LED,HIGH);
+        digitalWrite(LED,HIGH);
         delay(TIME_LED);
-		digitalWrite(LED,LOW);
+        digitalWrite(LED,LOW);
         delay(TIME_LED);
-	}
+    }
 }
 
-void *led2()
+void *led2(void *arg)
 {
     while (true){
-		digitalWrite(LED2,HIGH);
+        digitalWrite(LED2,HIGH);
         delay(TIME_LED);
-		digitalWrite(LED2,LOW);
+        digitalWrite(LED2,LOW);
         delay(TIME_LED);
-	}
+    }
 }
+
+
 
 int main(void){
 	wiringPiSetup();
