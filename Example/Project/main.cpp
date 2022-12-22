@@ -9,6 +9,8 @@
 #define RAINDROP_SENSOR 2
 #define LDR_SENSOR 3
 
+using namespace std;
+
 int onLED = 0; // 0 = off, 1 = on
 
 /*
