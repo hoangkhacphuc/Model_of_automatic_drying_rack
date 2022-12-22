@@ -29,6 +29,9 @@ void *initLED(void *arg) {
             delay(TIME_LED);
             isHigh = !isHigh;
         }
+        else {
+            digitalWrite(LED,LOW);
+        }
     }
 }
 
