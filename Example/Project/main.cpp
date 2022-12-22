@@ -22,9 +22,9 @@ void *led2(void *arg)
 {
     while (true){
         digitalWrite(LED2,HIGH);
-        delay(TIME_LED);
+        delay(TIME_LED - 500);
         digitalWrite(LED2,LOW);
-        delay(TIME_LED);
+        delay(TIME_LED - 500);
     }
 }
 
@@ -37,7 +37,6 @@ int main(void){
     pthread_create(&thread1, NULL, led, NULL);
     pthread_create(&thread2, NULL, led2, NULL);
     pthread_join(thread1, NULL);
-    delay(300);
     pthread_join(thread2, NULL);
 	return 0;
 }
