@@ -97,14 +97,14 @@ void init() {
     digitalWrite(LED, LOW);
 
     // Khởi tạo luồng cho led
-    pthread_t thread1;
+    pthread_t thread1, thread2;
     pthread_create(&thread1, NULL, initLED, NULL);
-    pthread_join(thread1, NULL);
-
-    // Khởi tạo luồng xử lý chương trình
-    pthread_t thread2;
     pthread_create(&thread2, NULL, handel, NULL);
+
+    pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
+
+    cout << "End\n";
 }
 
 int main(void) {
