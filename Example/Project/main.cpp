@@ -7,7 +7,7 @@
 #define LED2 2
 #define TIME_LED 500
 
-void led()
+void *led()
 {
     while (true){
 		digitalWrite(LED,HIGH);
@@ -17,7 +17,7 @@ void led()
 	}
 }
 
-void led2()
+void *led2()
 {
     while (true){
 		digitalWrite(LED2,HIGH);
@@ -31,6 +31,7 @@ int main(void){
 	wiringPiSetup();
 	pinMode(LED, OUTPUT);
     pinMode(LED2, OUTPUT);
+
     pthread_t thread1, thread2;
     pthread_create(&thread1, NULL, led, NULL);
     delay(300);
