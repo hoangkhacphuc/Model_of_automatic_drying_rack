@@ -52,7 +52,7 @@ void *initLED(void *arg) {
     * Hàm này sẽ bật/tắt led theo status
 */
 void ledStatus(int status) {
-    digitalWrite(LED, status ? HIGH : LOW);
+    digitalWrite(LED_STATUS, status ? HIGH : LOW);
 }
 
 /*
