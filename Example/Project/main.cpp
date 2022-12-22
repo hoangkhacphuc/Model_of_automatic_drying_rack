@@ -88,6 +88,9 @@ void init() {
     pinMode(RAINDROP_SENSOR, INPUT);
     pinMode(LDR_SENSOR, INPUT);
 
+    // Tắt led
+    digitalWrite(LED, LOW);
+
     // Khởi tạo luồng cho led
     pthread_t thread1;
     pthread_create(&thread1, NULL, initLED, NULL);
