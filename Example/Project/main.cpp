@@ -65,6 +65,7 @@ int isLight() {
 */
 
 void *handel(void *arg) {
+    cout << "Start handel\n";
     while (true) {
         if (isRaining() || isLight()) {
             onLED = 1;
