@@ -5,26 +5,25 @@
 
 #define LED 0
 #define LED2 2
+#define TIME_LED 500
 
-void led(int time)
+void led()
 {
-    if (time < 0) time = 500;
     while (true){
 		digitalWrite(LED,HIGH);
-        delay(500);
+        delay(TIME_LED);
 		digitalWrite(LED,LOW);
-        delay(500);
+        delay(TIME_LED);
 	}
 }
 
-void led2(int time)
+void led2()
 {
-    if (time < 0) time = 500;
     while (true){
 		digitalWrite(LED2,HIGH);
-        delay(500);
+        delay(TIME_LED);
 		digitalWrite(LED2,LOW);
-        delay(500);
+        delay(TIME_LED);
 	}
 }
 
