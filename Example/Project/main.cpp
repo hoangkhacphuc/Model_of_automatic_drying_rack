@@ -4,17 +4,15 @@
 #include <wiringPi.h>
 #include <pthread.h>
 
+using namespace std;
+
 #define LED 0
 #define LED_STATUS 1
-#define TIME_LED 500
-
 #define RAINDROP_SENSOR 2
 #define LDR_SENSOR 3
 #define BTN_STATUS 4
 
-
-using namespace std;
-
+#define TIME_LED 500
 int onLED = 0; // 0 = off, 1 = on
 
 /*
@@ -29,8 +27,8 @@ void *initLED(void *arg) {
     int isHigh = 0;
 
     // Tắt led
-    digitalWrite(LED, LOW);
-    digitalWrite(LED_STATUS, LOW);
+    digitalWrite(LED, HIGH);
+    digitalWrite(LED_STATUS, HIGH);
 
     while (true){
         if (onLED) {
@@ -53,7 +51,6 @@ void *initLED(void *arg) {
     * 
     * Hàm này sẽ bật/tắt led theo status
 */
-
 void ledStatus(int status) {
     digitalWrite(LED, status ? HIGH : LOW);
 }
@@ -88,7 +85,6 @@ int isLight() {
     * Hàm này sẽ chạy vô hạn, nếu có mưa hoặc ánh sáng thì bật led, ngược lại thì tắt
 */
 void *handel(void *arg) {
-    cout << "Start handel\n";
     while (true) {
         if (isRaining() || isLight()) {
             onLED = 1;
