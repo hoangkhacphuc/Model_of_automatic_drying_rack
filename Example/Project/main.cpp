@@ -6,7 +6,7 @@
 
 #define LED 0
 #define LED2 2
-#define TIME_LED 500
+#define TIME_LED 1000
 
 void *led(void *arg)
 {
