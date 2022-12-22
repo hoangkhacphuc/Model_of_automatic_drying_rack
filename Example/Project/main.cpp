@@ -41,7 +41,7 @@ void *initLED(void *arg) {
 */
 
 int isRaining() {
-    return digitalRead(RAINDROP_SENSOR) == LOW ? 1 : 0;
+    return digitalRead(RAINDROP_SENSOR) == HIGH ? 1 : 0;
 }
 
 /*
@@ -53,7 +53,7 @@ int isRaining() {
 */
 
 int isLight() {
-    return digitalRead(LDR_SENSOR) == LOW ? 1 : 0;
+    return digitalRead(LDR_SENSOR) == HIGH ? 1 : 0;
 }
 
 /*
