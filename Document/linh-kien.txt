@@ -1,8 +1,9 @@
 - Mô tơ
 - raspberry pi
 - Led
-- Cảm biến quang
+- Cảm biến quang (LDR Sensor module)
 	--- https://iotmaker.vn/cam-bien-anh-sang-quang-tro.html
+    --- http://www.jselectronics.com.my/index.php?ws=showproducts&products_id=1963634
 - Cảm biến mưa (Raindrop Sensor + control module)
 	--- https://components101.com/sensors/rain-drop-sensor-module
 - Module L298N

@@ -5,38 +5,77 @@
 #include <pthread.h>
 
 #define LED 0
-#define LED2 2
-#define TIME_LED 1000
+#define TIME_LED 500
+#define RAINDROP_SENSOR 2
+#define LDR_SENSOR 3
 
-void *led(void *arg)
-{
+int onLED = 0; // 0 = off, 1 = on
+
+/*
+    * Function: initLED
+    * ----------------------------
+    * Đây là hàm khởi tạo cho led
+    * arg: là tham số truyền vào
+    * 
+    * Hàm này sẽ chạy vô hạn, nếu onLED = 1 thì led sẽ bật và nhấp nháy, ngược lại thì tắt
+*/
+void *initLED(void *arg) {
     while (true){
-        digitalWrite(LED,HIGH);
-        delay(TIME_LED);
-        digitalWrite(LED,LOW);
-        delay(TIME_LED);
+        if (onLED) {
+            digitalWrite(LED,HIGH);
+            delay(TIME_LED);
+            digitalWrite(LED,LOW);
+            delay(TIME_LED);
+        }
     }
 }
 
-void *led2(void *arg)
-{
-    while (true){
-        digitalWrite(LED2,HIGH);
-        delay(TIME_LED - 500);
-        digitalWrite(LED2,LOW);
-        delay(TIME_LED - 500);
-    }
+/*
+    * Function: isRaining
+    * ----------------------------
+    * Đây là hàm kiểm tra xem có mưa hay không
+    * 
+    * Hàm này sẽ trả về 1 nếu có mưa, ngược lại trả về 0
+*/
+
+int isRaining() {
+    return digitalRead(RAINDROP_SENSOR) == HIGH ? 1 : 0;
 }
 
-int main(void){
-	wiringPiSetup();
-	pinMode(LED, OUTPUT);
-    pinMode(LED2, OUTPUT);
+/*
+    * Function: isLight
+    * ----------------------------
+    * Đây là hàm kiểm tra xem có ánh sáng hay không
+    * 
+    * Hàm này sẽ trả về 1 nếu có ánh sáng, ngược lại trả về 0
+*/
 
-    pthread_t thread1, thread2;
-    pthread_create(&thread1, NULL, led, NULL);
-    pthread_create(&thread2, NULL, led2, NULL);
+int isLight() {
+    return digitalRead(LDR_SENSOR) == HIGH ? 1 : 0;
+}
+
+/*
+    * Function: init
+    * ----------------------------
+    * Đây là hàm khởi tạo cho chương trình
+    * 
+    * Hàm này sẽ khởi tạo các chân đầu ra và đầu vào, khởi tạo luồng cho led
+*/
+
+void init() {
+    wiringPiSetup();
+
+    // Cài đặt chân đầu ra và đầu vào
+    pinMode(LED, OUTPUT);
+    pinMode(RAINDROP_SENSOR, INPUT);
+
+    // Khởi tạo luồng cho led
+    pthread_t thread1;
+    pthread_create(&thread1, NULL, initLED, NULL);
     pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+}
+
+int main(void) {
+    init();
 	return 0;
 }
