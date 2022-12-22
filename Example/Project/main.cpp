@@ -55,6 +55,24 @@ int isLight() {
 }
 
 /*
+    * Function: handel
+    * ----------------------------
+    * Đây là hàm xử lý cho chương trình
+    * 
+    * Hàm này sẽ chạy vô hạn, nếu có mưa hoặc ánh sáng thì bật led, ngược lại thì tắt
+*/
+
+void handel() {
+    while (true) {
+        if (isRaining() || isLight()) {
+            onLED = 1;
+        } else {
+            onLED = 0;
+        }
+    }
+}
+
+/*
     * Function: init
     * ----------------------------
     * Đây là hàm khởi tạo cho chương trình
@@ -68,11 +86,15 @@ void init() {
     // Cài đặt chân đầu ra và đầu vào
     pinMode(LED, OUTPUT);
     pinMode(RAINDROP_SENSOR, INPUT);
+    pinMode(LDR_SENSOR, INPUT);
 
     // Khởi tạo luồng cho led
     pthread_t thread1;
     pthread_create(&thread1, NULL, initLED, NULL);
     pthread_join(thread1, NULL);
+
+    // Xử lý chương trình
+    handel();
 }
 
 int main(void) {
