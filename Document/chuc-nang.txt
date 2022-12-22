@@ -1,0 +1,12 @@
+- Bật/tắt giàn phơi
+- Thu/mở giàn phơi
+- Xem trạng thái:
+	- Đã đóng/mở - Đang đóng/mở
+	- Thời tiết:
+		- Nắng: Có/Không
+		- Mưa: Có/Không
+	- Thời gian hiện tại
+- Xem lịch sử đóng mở
+- Cài đặt:
+	- Hẹn giờ đóng/mở giàn phơi
+	

@@ -1,17 +1,17 @@
 #include <wiringPi.h>
 
-#define Raindrops_module 2
+#define Light 3
 #define Led 0
 
 int main(void){
 	wiringPiSetup();
-	pinMode(Raindrops_module, INPUT);
+	pinMode(Light, INPUT);
     pinMode(Led, OUTPUT);
 
 	for(;;){
-        int Raindrops_module_value = digitalRead(Raindrops_module);
+        int Light_value = digitalRead(Light);
 
-        if(Raindrops_module_value == HIGH){
+        if(Light_value == HIGH){
             digitalWrite(Led, LOW);
         }
         else{

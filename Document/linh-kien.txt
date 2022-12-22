@@ -1,0 +1,9 @@
+- Mô tơ
+- raspberry pi
+- Led
+- Cảm biến quang
+	--- https://iotmaker.vn/cam-bien-anh-sang-quang-tro.html
+- Cảm biến mưa (Raindrop Sensor + control module)
+	--- https://components101.com/sensors/rain-drop-sensor-module
+- Module L298N
+	--- https://pivietnam.com.vn/huong-dan-cach-dieu-khien-xe-mo-hinh-co-ban-voi-raspberry-pi-pivietnam-com-vn.html
