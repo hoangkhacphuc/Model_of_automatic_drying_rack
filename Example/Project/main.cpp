@@ -68,11 +68,10 @@ void *handel(void *arg) {
     cout << "Start handel\n";
     while (true) {
         if (isRaining() || isLight()) {
+            cout << "Rain: " << isRaining() << " Light: " << isLight() << "\n";
             onLED = 1;
-            cout << "ON\n";
         } else {
             onLED = 0;
-            cout << "OFF\n";
         }
     }
 }
@@ -103,8 +102,6 @@ void init() {
 
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
-
-    cout << "End\n";
 }
 
 int main(void) {
