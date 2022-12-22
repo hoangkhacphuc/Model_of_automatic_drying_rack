@@ -5,13 +5,13 @@
 int main(void){
 	wiringPiSetup();
 	pinMode(LED, OUTPUT);
-	led();
+	led(500);
 	return 0;
 }
 
 void led(int time)
 {
-    if (time == 0) time = 500;
+    if (time < 0) time = 500;
     while (true){
 		digitalWrite(LED,HIGH);
         delay(500);
