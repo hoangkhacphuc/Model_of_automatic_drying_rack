@@ -107,6 +107,7 @@ void init() {
 }
 
 int main(void) {
+    cout << "Start\n";
     init();
 	return 0;
 }
