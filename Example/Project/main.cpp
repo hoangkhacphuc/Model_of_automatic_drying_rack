@@ -2,13 +2,6 @@
 
 #define LED 0
 
-int main(void){
-	wiringPiSetup();
-	pinMode(LED, OUTPUT);
-	led(500);
-	return 0;
-}
-
 void led(int time)
 {
     if (time < 0) time = 500;
@@ -18,4 +11,11 @@ void led(int time)
 		digitalWrite(LED,LOW);
         delay(500);
 	}
+}
+
+int main(void){
+	wiringPiSetup();
+	pinMode(LED, OUTPUT);
+	led(500);
+	return 0;
 }
