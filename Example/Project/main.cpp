@@ -27,7 +27,7 @@ int onLED = 0; // 0 = off, 1 = on
 */
 void *initLED(void *arg) {
     int isHigh = 0;
-    
+
     // Tắt led
     digitalWrite(LED, LOW);
     digitalWrite(LED_STATUS, LOW);
@@ -55,7 +55,7 @@ void *initLED(void *arg) {
 */
 
 void ledStatus(int status) {
-    digitalWrite(LED, status);
+    digitalWrite(LED, status ? HIGH : LOW);
 }
 
 /*
@@ -96,7 +96,7 @@ void *handel(void *arg) {
             onLED = 0;
         }
         // Nếu nhấn nút thì bật led thống báo trạng thái
-        if (digitalRead(BTN_STATUS) == LOW) {
+        if (digitalRead(BTN_STATUS) == HIGH) {
             ledStatus(1);
         }
         else {
