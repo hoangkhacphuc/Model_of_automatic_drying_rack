@@ -92,7 +92,7 @@ void *handel(void *arg) {
             onLED = 0;
         }
         // Nếu nhấn nút thì bật led thống báo trạng thái
-        if (digitalRead(BTN_STATUS) == HIGH) {
+        if (digitalRead(BTN_STATUS) == LOW) {
             ledStatus(1);
         }
         else {
