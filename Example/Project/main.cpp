@@ -20,12 +20,12 @@ int onLED = 0; // 0 = off, 1 = on
     * Hàm này sẽ chạy vô hạn, nếu onLED = 1 thì led sẽ bật và nhấp nháy, ngược lại thì tắt
 */
 void *initLED(void *arg) {
+    int isHigh = 0;
     while (true){
         if (onLED) {
-            digitalWrite(LED,HIGH);
+            digitalWrite(LED,isHigh);
             delay(TIME_LED);
-            digitalWrite(LED,LOW);
-            delay(TIME_LED);
+            isHigh = !isHigh;
         }
     }
 }
@@ -66,8 +66,10 @@ void *handel(void *arg) {
     while (true) {
         if (isRaining() || isLight()) {
             onLED = 1;
+            cout << "ON" << endl;
         } else {
             onLED = 0;
+            cout << "OFF" << endl;
         }
     }
 }
