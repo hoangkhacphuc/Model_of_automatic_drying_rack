@@ -62,7 +62,7 @@ int isLight() {
     * Hàm này sẽ chạy vô hạn, nếu có mưa hoặc ánh sáng thì bật led, ngược lại thì tắt
 */
 
-void handel() {
+void *handel(void *arg) {
     while (true) {
         if (isRaining() || isLight()) {
             onLED = 1;
@@ -93,8 +93,10 @@ void init() {
     pthread_create(&thread1, NULL, initLED, NULL);
     pthread_join(thread1, NULL);
 
-    // Xử lý chương trình
-    handel();
+    // Khởi tạo luồng xử lý chương trình
+    pthread_t thread2;
+    pthread_create(&thread2, NULL, handel, NULL);
+    pthread_join(thread2, NULL);
 }
 
 int main(void) {
