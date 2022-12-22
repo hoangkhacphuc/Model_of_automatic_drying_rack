@@ -99,6 +99,9 @@ void *handel(void *arg) {
         if (digitalRead(BTN_STATUS) == LOW) {
             ledStatus(1);
         }
+        else {
+            ledStatus(0);
+        }
     }
 }
 
