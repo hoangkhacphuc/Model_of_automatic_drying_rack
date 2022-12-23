@@ -91,11 +91,13 @@ int isLight() {
 */
 void runMotor() {
     if (!onMotor) {
-        return;
+        digitalWrite(MOTOR_ENA, LOW);
     }
-    digitalWrite(MOTOR_ENA, HIGH);
-    digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
-    digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+    else {
+        digitalWrite(MOTOR_ENA, HIGH);
+        digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
+        digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+    }
 }
 
 /*
