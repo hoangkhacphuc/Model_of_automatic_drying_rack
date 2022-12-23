@@ -11,9 +11,14 @@ using namespace std;
 #define RAINDROP_SENSOR 2
 #define LDR_SENSOR 3
 #define BTN_STATUS 4
+#define MOTOR_ENA  6
+#define MOTOR_IN1  5
+#define MOTOR_IN2  25
 
 #define TIME_LED 500
 int onLED = 0; // 0 = off, 1 = on
+int onMotor = 0; // 0 = off, 1 = on
+int direction = 0; // 0 = forward, 1 = backward
 
 /*
     * Function: initLED
@@ -78,6 +83,22 @@ int isLight() {
 }
 
 /*
+    * Function: runMotor
+    * ----------------------------
+    * Đây là hàm bật motor
+    * 
+    * Hàm này sẽ bật motor và điều khiển chiều quay
+*/
+void runMotor() {
+    if (!onMotor) {
+        return;
+    }
+    digitalWrite(MOTOR_ENA, HIGH);
+    digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
+    digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+}
+
+/*
     * Function: handel
     * ----------------------------
     * Đây là hàm xử lý cho chương trình
@@ -94,9 +115,11 @@ void *handel(void *arg) {
         // Nếu nhấn nút thì bật led thống báo trạng thái
         if (digitalRead(BTN_STATUS) == LOW) {
             ledStatus(1);
+            onMotor = 1;
         }
         else {
             ledStatus(0);
+            onMotor = 0;
         }
     }
 }
@@ -117,14 +140,19 @@ void init() {
     pinMode(RAINDROP_SENSOR, INPUT);
     pinMode(LDR_SENSOR, INPUT);
     pinMode(BTN_STATUS, INPUT);
+    pinMode(MOTOR_ENA, OUTPUT);
+    pinMode(MOTOR_IN1, OUTPUT);
+    pinMode(MOTOR_IN2, OUTPUT);
 
-    // Khởi tạo luồng cho led
-    pthread_t thread1, thread2;
+    // Khởi tạo luồng cho led, xử lý và chạy motor
+    pthread_t thread1, thread2, thread3;
     pthread_create(&thread1, NULL, initLED, NULL);
     pthread_create(&thread2, NULL, handel, NULL);
+    pthread_create(&thread3, NULL, runMotor, NULL);
 
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
+    pthread_join(thread3, NULL);
 }
 
 int main(void) {
