@@ -93,15 +93,13 @@ void *runMotor(void *arg) {
     digitalWrite(MOTOR_ENA, LOW);
     while (true)
     {
-        if (!onMotor) {
+        if (onMotor) {
             digitalWrite(MOTOR_ENA, LOW);
-            cout << "Motor off";
+            digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
+            digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
         }
         else {
             digitalWrite(MOTOR_ENA, HIGH);
-            digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
-            digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
-            cout << "Motor on";
         }
     }
 }
