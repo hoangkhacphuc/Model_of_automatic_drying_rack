@@ -95,11 +95,13 @@ void *runMotor(void *arg) {
     {
         if (!onMotor) {
             digitalWrite(MOTOR_ENA, LOW);
+            cout << "Motor off";
         }
         else {
             digitalWrite(MOTOR_ENA, HIGH);
             digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
             digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+            cout << "Motor on";
         }
     }
 }
@@ -122,6 +124,7 @@ void *handel(void *arg) {
         if (digitalRead(BTN_STATUS) == LOW) {
             ledStatus(1);
             onMotor = 1;
+
         }
         else {
             ledStatus(0);
