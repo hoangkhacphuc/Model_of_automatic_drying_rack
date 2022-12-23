@@ -90,13 +90,17 @@ int isLight() {
     * Hàm này sẽ bật motor và điều khiển chiều quay
 */
 void *runMotor(void *arg) {
-    if (!onMotor) {
-        digitalWrite(MOTOR_ENA, LOW);
-    }
-    else {
-        digitalWrite(MOTOR_ENA, HIGH);
-        digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
-        digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+    digitalWrite(MOTOR_ENA, LOW);
+    while (true)
+    {
+        if (!onMotor) {
+            digitalWrite(MOTOR_ENA, LOW);
+        }
+        else {
+            digitalWrite(MOTOR_ENA, HIGH);
+            digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
+            digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+        }
     }
 }
 
