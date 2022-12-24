@@ -42,12 +42,16 @@ int main(void){
     pinMode(IN2, OUTPUT);
 
     // tạo thread cho motor
-    pthread_t motorThread;
+    pthread_t motorThread, buttonThread;
     pthread_create(&motorThread, NULL, runMotor, NULL);
+    pthread_create(&buttonThread, NULL, button, NULL);
     pthread_join(motorThread, NULL);
+    pthread_join(buttonThread, NULL);
+	return 0;
+}
 
-
-	for(;;){
+void button() {
+    for(;;){
 		if(digitalRead(Button) == 1){
             digitalWrite(Led, HIGH);
             onMotor = 1;
@@ -59,6 +63,4 @@ int main(void){
             cout << "Button is not pressed\n";
         }
 	}
-	return 0;
 }
-
