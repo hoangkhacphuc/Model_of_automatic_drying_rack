@@ -92,16 +92,19 @@ int isLight() {
 void *runMotor(void *arg) {
     digitalWrite(MOTOR_ENA, LOW);
     pinMode(MOTOR_ENA, PWM_OUTPUT);
-    pwmWrite(MOTOR_ENA, 500);
+    int pwmMax = 1024;
+    int pwmMin = 0;
+
+    pwmWrite(MOTOR_ENA, 1024);
     while (true)
     {
         if (onMotor) {
-            digitalWrite(MOTOR_ENA, LOW);
+            digitalWrite(MOTOR_ENA, pwmMin);
             digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
             digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
         }
         else {
-            digitalWrite(MOTOR_ENA, HIGH);
+            digitalWrite(MOTOR_ENA, 1024);
         }
     }
 }
