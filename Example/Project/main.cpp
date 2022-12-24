@@ -91,6 +91,7 @@ int isLight() {
 */
 void *runMotor(void *arg) {
     digitalWrite(MOTOR_ENA, LOW);
+    pinMode(MOTOR_ENA, PWM_OUTPUT);
     pwmWrite(MOTOR_ENA, 1000);
     while (true)
     {
