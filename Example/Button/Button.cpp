@@ -21,7 +21,7 @@ void *runMotor(void *arg) {
     {
         if (onMotor) {
             // Tốc độ motor pwm = 0 -> 100
-            pwmWrite(ENA, 100);
+            // pwmWrite(ENA, 100);
 
             digitalWrite(ENA, LOW);
             digitalWrite(IN1, direction ? HIGH : LOW);
