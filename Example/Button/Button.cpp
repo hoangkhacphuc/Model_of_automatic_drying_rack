@@ -12,6 +12,7 @@
 
 using namespace std;
 int onMotor = 0; // 0 = off, 1 = on
+int direction = 0; // 0 = forward, 1 = backward
 
 // Hàm điều khiển motor theo tốc độ
 void *runMotor(void *arg) {
