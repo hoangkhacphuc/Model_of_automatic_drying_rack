@@ -23,9 +23,11 @@ void *runMotor(void *arg) {
             digitalWrite(ENA, LOW);
             digitalWrite(IN1, direction ? HIGH : LOW);
             digitalWrite(IN2, direction ? LOW : HIGH);
+            cout << "Motor is running\n";
         }
         else {
             digitalWrite(ENA, HIGH);
+            cout << "Motor is stop\n";
         }
     }
 }
