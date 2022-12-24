@@ -93,18 +93,29 @@ int isLight() {
 */
 void *runMotor(void *arg) {
     digitalWrite(MOTOR_ENA, LOW);
-    pinMode(MOTOR_ENA, PWM_OUTPUT);
 
-    pwmWrite(MOTOR_ENA, pwmMax);
+    // while (true)
+    // {
+    //     if (onMotor) {
+    //         digitalWrite(MOTOR_ENA, pwmMin);
+    //         digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
+    //         digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
+    //     }
+    //     else {
+    //         digitalWrite(MOTOR_ENA, pwmMax);
+    //     }
+    // }
+
+    // Sử dụng PWM để điều khiển tốc độ quay của motor
     while (true)
     {
         if (onMotor) {
-            digitalWrite(MOTOR_ENA, pwmMin);
+            pwmWrite(MOTOR_ENA, pwmMin);
             digitalWrite(MOTOR_IN1, direction ? HIGH : LOW);
             digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
         }
         else {
-            digitalWrite(MOTOR_ENA, pwmMax);
+            pwmWrite(MOTOR_ENA, pwmMax);
         }
     }
 }
