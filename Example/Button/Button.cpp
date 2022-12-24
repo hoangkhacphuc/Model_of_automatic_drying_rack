@@ -13,6 +13,23 @@
 using namespace std;
 int onMotor = 0; // 0 = off, 1 = on
 
+// Hàm điều khiển motor theo tốc độ
+void *runMotor(void *arg) {
+    digitalWrite(ENA, LOW);
+    while (true)
+    {
+        if (onMotor) {
+            // Tốc độ motor pwm = 0 -> 100
+            pwmWrite(ENA, 100);
+            digitalWrite(IN1, direction ? HIGH : LOW);
+            digitalWrite(IN2, direction ? LOW : HIGH);
+        }
+        else {
+            digitalWrite(ENA, HIGH);
+        }
+    }
+}
+
 int main(void){
 	wiringPiSetup();
 	pinMode(Button, INPUT);
@@ -40,19 +57,3 @@ int main(void){
 	return 0;
 }
 
-// Hàm điều khiển motor theo tốc độ
-void *runMotor(void *arg) {
-    digitalWrite(ENA, LOW);
-    while (true)
-    {
-        if (onMotor) {
-            // Tốc độ motor pwm = 0 -> 100
-            pwmWrite(ENA, 100);
-            digitalWrite(IN1, direction ? HIGH : LOW);
-            digitalWrite(IN2, direction ? LOW : HIGH);
-        }
-        else {
-            digitalWrite(ENA, HIGH);
-        }
-    }
-}
