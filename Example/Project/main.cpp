@@ -7,13 +7,13 @@
 using namespace std;
 
 #define LED 0
-#define LED_STATUS 1
-#define RAINDROP_SENSOR 2
-#define LDR_SENSOR 3
-#define BTN_STATUS 4
+#define LED_STATUS 1 // 
+#define RAINDROP_SENSOR 2 //
+#define LDR_SENSOR 3 //
+#define BTN_STATUS 29
 #define MOTOR_ENA  6
-#define MOTOR_IN1  5
-#define MOTOR_IN2  25
+#define MOTOR_IN1  4
+#define MOTOR_IN2  5
 
 #define TIME_LED 500
 int onLED = 0; // 0 = off, 1 = on
