@@ -92,7 +92,9 @@ int isLight() {
     * Hàm này sẽ bật motor và điều khiển chiều quay
 */
 void *runMotor(void *arg) {
-    digitalWrite(MOTOR_ENA, LOW);
+    // digitalWrite(MOTOR_ENA, LOW);
+
+    pinMode(MOTOR_ENA, PWM_OUTPUT);
 
     // while (true)
     // {
