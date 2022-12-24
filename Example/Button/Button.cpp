@@ -26,9 +26,11 @@ void *runMotor(void *arg) {
             digitalWrite(ENA, LOW);
             digitalWrite(IN1, direction ? HIGH : LOW);
             digitalWrite(IN2, direction ? LOW : HIGH);
+            cout << "Motor is running\n";
         }
         else {
             digitalWrite(ENA, HIGH);
+            cout << "Motor is stop\n";
         }
     }
 }
@@ -38,12 +40,10 @@ void *button(void *arg) {
 		if(digitalRead(Button) == 1){
             digitalWrite(Led, HIGH);
             onMotor = 1;
-            cout << "Button is pressed\n";
         }
         else{
             digitalWrite(Led, LOW);
             onMotor = 0;
-            cout << "Button is not pressed\n";
         }
 	}
 }
