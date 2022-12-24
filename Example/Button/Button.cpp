@@ -33,6 +33,21 @@ void *runMotor(void *arg) {
     }
 }
 
+void *button(void *arg) {
+    for(;;){
+		if(digitalRead(Button) == 1){
+            digitalWrite(Led, HIGH);
+            onMotor = 1;
+            cout << "Button is pressed\n";
+        }
+        else{
+            digitalWrite(Led, LOW);
+            onMotor = 0;
+            cout << "Button is not pressed\n";
+        }
+	}
+}
+
 int main(void){
 	wiringPiSetup();
 	pinMode(Button, INPUT);
@@ -48,19 +63,4 @@ int main(void){
     pthread_join(motorThread, NULL);
     pthread_join(buttonThread, NULL);
 	return 0;
-}
-
-void button() {
-    for(;;){
-		if(digitalRead(Button) == 1){
-            digitalWrite(Led, HIGH);
-            onMotor = 1;
-            cout << "Button is pressed\n";
-        }
-        else{
-            digitalWrite(Led, LOW);
-            onMotor = 0;
-            cout << "Button is not pressed\n";
-        }
-	}
 }
