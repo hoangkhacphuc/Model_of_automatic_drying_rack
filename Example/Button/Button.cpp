@@ -1,6 +1,6 @@
 #include <wiringPi.h>
 
-#define Button 2
+#define Button 29
 #define Led 0
 
 int main(void){
