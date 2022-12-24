@@ -16,7 +16,7 @@ int direction = 0; // 0 = forward, 1 = backward
 
 // Hàm điều khiển motor theo tốc độ
 void *runMotor(void *arg) {
-    digitalWrite(MOTOR_ENA, LOW);
+    digitalWrite(ENA, LOW);
     while (true)
     {
         if (onMotor) {
