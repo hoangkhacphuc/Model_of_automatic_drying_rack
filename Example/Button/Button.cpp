@@ -16,28 +16,23 @@ int direction = 0; // 0 = forward, 1 = backward
 
 // Hàm điều khiển motor theo tốc độ
 void *runMotor(void *arg) {
-    digitalWrite(ENA, LOW);
+    digitalWrite(MOTOR_ENA, LOW);
     while (true)
     {
         if (onMotor) {
-            // Tốc độ motor pwm = 0 -> 100
-            // pwmWrite(ENA, 100);
-
             digitalWrite(ENA, LOW);
             digitalWrite(IN1, direction ? HIGH : LOW);
             digitalWrite(IN2, direction ? LOW : HIGH);
-            cout << "Motor is running\n";
         }
         else {
             digitalWrite(ENA, HIGH);
-            cout << "Motor is stop\n";
         }
     }
 }
 
 void *button(void *arg) {
     for(;;){
-		if(digitalRead(Button) == 1){
+		if(digitalRead(Button) == LOW){
             digitalWrite(Led, HIGH);
             onMotor = 1;
         }
