@@ -31,14 +31,14 @@ void *runMotor(void *arg) {
 }
 
 void *button(void *arg) {
-    digitalWrite(Led, LOW);
+    digitalWrite(Led, HIGH);
     for(;;){
 		if(digitalRead(Button) == LOW){
-            digitalWrite(Led, HIGH);
+            digitalWrite(Led, LOW);
             onMotor = 1;
         }
         else{
-            digitalWrite(Led, LOW);
+            digitalWrite(Led, HIGH);
             onMotor = 0;
         }
 	}
