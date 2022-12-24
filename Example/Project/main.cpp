@@ -19,6 +19,8 @@ using namespace std;
 int onLED = 0; // 0 = off, 1 = on
 int onMotor = 0; // 0 = off, 1 = on
 int direction = 0; // 0 = forward, 1 = backward
+int pwmMax = 1024;
+int pwmMin = 0;
 
 /*
     * Function: initLED
@@ -92,10 +94,8 @@ int isLight() {
 void *runMotor(void *arg) {
     digitalWrite(MOTOR_ENA, LOW);
     pinMode(MOTOR_ENA, PWM_OUTPUT);
-    int pwmMax = 1024;
-    int pwmMin = 0;
 
-    pwmWrite(MOTOR_ENA, 1024);
+    pwmWrite(MOTOR_ENA, pwmMax);
     while (true)
     {
         if (onMotor) {
@@ -104,7 +104,7 @@ void *runMotor(void *arg) {
             digitalWrite(MOTOR_IN2, direction ? LOW : HIGH);
         }
         else {
-            digitalWrite(MOTOR_ENA, 1024);
+            digitalWrite(MOTOR_ENA, pwmMax);
         }
     }
 }
