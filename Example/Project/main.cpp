@@ -6,8 +6,8 @@
 
 using namespace std;
 
-#define LED 0
-#define LED_STATUS 1 // 
+#define LED 1
+#define LED_STATUS 0 // 
 #define RAINDROP_SENSOR 2 //
 #define LDR_SENSOR 3 //
 #define BTN_STATUS 29
