@@ -16,7 +16,7 @@ int direction = 0; // 0 = forward, 1 = backward
 
 // Hàm điều khiển motor theo tốc độ
 void *runMotor(void *arg) {
-    digitalWrite(ENA, LOW);
+    digitalWrite(ENA, HIGH);
     while (true)
     {
         if (onMotor) {
@@ -31,6 +31,7 @@ void *runMotor(void *arg) {
 }
 
 void *button(void *arg) {
+    digitalWrite(Led, LOW);
     for(;;){
 		if(digitalRead(Button) == LOW){
             digitalWrite(Led, HIGH);
