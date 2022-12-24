@@ -51,10 +51,12 @@ int main(void){
 		if(digitalRead(Button) == 1){
             digitalWrite(Led, HIGH);
             onMotor = 1;
+            cout << "Button is pressed\n";
         }
         else{
             digitalWrite(Led, LOW);
             onMotor = 0;
+            cout << "Button is not pressed\n";
         }
 	}
 	return 0;
