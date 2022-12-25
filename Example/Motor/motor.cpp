@@ -12,6 +12,13 @@ int main(void){
     digitalWrite(INP1,LOW);
     digitalWrite(INP2,LOW);
     digitalWrite(ENA,LOW);
+
+    // chỉnh tốc độ
+    pwmWWrite(ENA, 1000);
+
+    // change duty cycle
+    pwmSetRange(1024);
+
     int direction = 0;
 
 	for(;;){
