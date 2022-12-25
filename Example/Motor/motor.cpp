@@ -22,8 +22,7 @@ int main(void){
         // Giảm tốc độ 1 nửa (50%) sau 5 giây bằng pwm
         delay(5000);
         // change duty cycle trong c++
-        pwmWrite(ENA, 50);
-        delay(5000);
+        pwmChangeDutyCycle(ENA, 50);
 	}
 	return 0;
 }
