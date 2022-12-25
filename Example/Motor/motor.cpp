@@ -20,11 +20,9 @@ int main(void){
         digitalWrite(INP2,HIGH);
         digitalWrite(ENA,HIGH);
 
-        // Giảm tốc độ 1 nửa (50%) sau 5 giây
+        // Giảm tốc độ 1 nửa (50%) sau 5 giây bằng pwm
         delay(5000);
-        digitalWrite(ENA,LOW);
-        delay(5000);
-
+        pwmWrite(ENA, 1024/2);
 	}
 	return 0;
 }
