@@ -13,7 +13,7 @@ int main(void){
     digitalWrite(INP2,LOW);
     digitalWrite(ENA,LOW);
 
-    int direction = 0;
+    // int direction = 0;
 
 	for(;;){
         digitalWrite(INP1,LOW);
@@ -24,7 +24,7 @@ int main(void){
         delay(5000);
         digitalWrite(ENA,LOW);
         delay(5000);
-        
+
 	}
 	return 0;
 }
