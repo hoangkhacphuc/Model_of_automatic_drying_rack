@@ -12,6 +12,8 @@ int main(void){
     digitalWrite(INP1,LOW);
     digitalWrite(INP2,LOW);
     digitalWrite(ENA,LOW);
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(1024);
 
     // int direction = 0;
 
