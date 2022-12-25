@@ -15,7 +15,7 @@ int main(void){
 
     // chỉnh tốc độ
     pwmSetRange(1024);
-    pwmWrite(ENA, 100);
+    pwmWrite(ENA, 0);
 
     int direction = 0;
 
