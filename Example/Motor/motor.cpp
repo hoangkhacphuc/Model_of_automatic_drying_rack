@@ -16,6 +16,7 @@ int main(void){
     // int direction = 0;
 
 	for(;;){
+        pwmWrite(ENA, 1024);
         digitalWrite(INP1,LOW);
         digitalWrite(INP2,HIGH);
         digitalWrite(ENA,HIGH);
