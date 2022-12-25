@@ -127,5 +127,6 @@ if __name__ == "__main__":
                 handler.led.on()
             else:
                 handler.motor.stop()
+            sleep(0.1)
     except KeyboardInterrupt:
         handler.cleanup()
