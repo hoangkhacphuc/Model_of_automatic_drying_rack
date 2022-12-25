@@ -24,6 +24,7 @@ int main(void){
         // Giảm tốc độ 1 nửa (50%) sau 5 giây bằng pwm
         delay(5000);
         pwmWrite(ENA, 1024/2);
+        delay(5000);
 	}
 	return 0;
 }
