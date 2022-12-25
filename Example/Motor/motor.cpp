@@ -13,24 +13,18 @@ int main(void){
     digitalWrite(INP2,LOW);
     digitalWrite(ENA,LOW);
 
-    // chỉnh tốc độ
-    pwmSetRange(1024);
-    pwmWrite(ENA, 0);
-
     int direction = 0;
 
 	for(;;){
-        // chạy liên tục
-        if (direction == 0) {
-            digitalWrite(INP1,LOW);
-            digitalWrite(INP2,HIGH);
-            digitalWrite(ENA,HIGH);
-        }
-        else {
-            digitalWrite(INP1,HIGH);
-            digitalWrite(INP2,LOW);
-            digitalWrite(ENA,HIGH);
-        }
+        digitalWrite(INP1,LOW);
+        digitalWrite(INP2,HIGH);
+        digitalWrite(ENA,HIGH);
+
+        // Giảm tốc độ 1 nửa (50%) sau 5 giây
+        delay(5000);
+        digitalWrite(ENA,LOW);
+        delay(5000);
+        
 	}
 	return 0;
 }
