@@ -12,21 +12,82 @@ int main(void){
     digitalWrite(INP1,LOW);
     digitalWrite(INP2,LOW);
     digitalWrite(ENA,LOW);
-    pwmSetMode(PWM_MODE_MS);
-    pwmSetRange(1024);
-
     // int direction = 0;
 
 	for(;;){
-        pwmWrite(ENA, 1024);
         digitalWrite(INP1,LOW);
         digitalWrite(INP2,HIGH);
         digitalWrite(ENA,HIGH);
 
         // Giảm tốc độ 1 nửa (50%) sau 5 giây bằng pwm
         delay(5000);
-        pwmWrite(ENA, 1024/2);
-        delay(5000);
+        digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+        digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+        digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100); digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
+         digitalWrite(ENA,LOW);
+        delay(100);
+        digitalWrite(ENA,HIGH);
+        delay(100);
 	}
 	return 0;
 }
