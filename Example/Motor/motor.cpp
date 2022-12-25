@@ -14,10 +14,8 @@ int main(void){
     digitalWrite(ENA,LOW);
 
     // chỉnh tốc độ
-    pwmWrite(ENA, 100);
-
-    // change duty cycle
     pwmSetRange(1024);
+    pwmWrite(ENA, 100);
 
     int direction = 0;
 
