@@ -119,10 +119,12 @@ if __name__ == "__main__":
                 handler.led.off()
             if handler.ldr_sensor.is_dark():
                 handler.motor.forward()
+                handler.led.on()
             else:
                 handler.motor.stop()
             if handler.raindrop_sensor.is_wet():
                 handler.motor.backward()
+                handler.led.on()
             else:
                 handler.motor.stop()
     except KeyboardInterrupt:
