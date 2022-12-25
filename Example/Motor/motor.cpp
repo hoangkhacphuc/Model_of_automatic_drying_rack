@@ -1,8 +1,8 @@
 #include <wiringPi.h>
 
-#define INP1 0
-#define INP2 2
-#define ENA 1
+#define INP1 4
+#define INP2 5
+#define ENA 6
 
 int main(void){
 	wiringPiSetup();
@@ -11,15 +11,21 @@ int main(void){
     pinMode(ENA, OUTPUT);
     digitalWrite(INP1,LOW);
     digitalWrite(INP2,LOW);
-    pwmWrite(ENA, 1000);
+    digitalWrite(ENA,LOW);
+    int direction = 0;
 
 	for(;;){
-        digitalWrite(INP1,HIGH);
-        digitalWrite(INP2,LOW);
-        delay(1000);
-        digitalWrite(INP1,LOW);
-        digitalWrite(INP2,HIGH);
-        delay(1000);
+        // chạy liên tục
+        if (direction == 0) {
+            digitalWrite(INP1,LOW);
+            digitalWrite(INP2,HIGH);
+            digitalWrite(ENA,HIGH);
+        }
+        else {
+            digitalWrite(INP1,HIGH);
+            digitalWrite(INP2,LOW);
+            digitalWrite(ENA,HIGH);
+        }
 	}
 	return 0;
 }
