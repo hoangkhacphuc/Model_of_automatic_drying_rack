@@ -129,13 +129,13 @@ class Handler:
 #     except KeyboardInterrupt:
 #         handler.cleanup()
 
-# test ldr sensor
+# test raindrop sensor
 
 if __name__ == "__main__":
     handler = Handler()
     try:
         while True:
-            if handler.ldr_sensor.is_dark():
+            if handler.raindrop_sensor.is_wet():
                 handler.led.on()
             else:
                 handler.led.off()
