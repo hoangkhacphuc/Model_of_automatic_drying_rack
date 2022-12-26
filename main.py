@@ -30,9 +30,9 @@ class Button:
         GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def is_pressed(self):
-        if GPIO.input(self.pin) == GPIO.LOW:
+        if GPIO.input(self.pin) == GPIO.HIGH:
             print('Pressed\n')
-        return GPIO.input(self.pin) == GPIO.LOW
+        return GPIO.input(self.pin) == GPIO.HIGH
 
     def cleanup(self):
         GPIO.cleanup()
