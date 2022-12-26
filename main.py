@@ -30,8 +30,6 @@ class Button:
         GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def is_pressed(self):
-        if GPIO.input(self.pin) == GPIO.HIGH:
-            print('Pressed\n')
         return GPIO.input(self.pin) == GPIO.HIGH
 
     def cleanup(self):
@@ -131,13 +129,13 @@ class Handler:
 #     except KeyboardInterrupt:
 #         handler.cleanup()
 
-# test button
+# test ldr sensor
 
 if __name__ == "__main__":
     handler = Handler()
     try:
         while True:
-            if handler.button.is_pressed():
+            if handler.ldr_sensor.is_dark():
                 handler.led.on()
             else:
                 handler.led.off()
