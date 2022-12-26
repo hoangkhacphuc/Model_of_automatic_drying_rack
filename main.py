@@ -111,7 +111,8 @@ class Database:
 
     def query(self, query):
         self.cursor.execute(query)
-        return self.cursor.fetchall()
+        self.connection.commit()
+        
 
     def cleanup(self):
         self.connection.close()
