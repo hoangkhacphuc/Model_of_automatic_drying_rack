@@ -96,11 +96,11 @@ class Motor:
 
 class Handler:
     def __init__(self):
-        self.led = LED(11)
-        self.button = Button(36)
-        self.ldr_sensor = LDR_Sensor(16)
-        self.raindrop_sensor = Raindrop_Sensor(18)
-        self.motor = Motor(22, 29, 31)
+        self.led = LED(17)
+        self.button = Button(16)
+        self.ldr_sensor = LDR_Sensor(23)
+        self.raindrop_sensor = Raindrop_Sensor(24)
+        self.motor = Motor(25, 5, 6)
 
     def cleanup(self):
         self.led.cleanup()
