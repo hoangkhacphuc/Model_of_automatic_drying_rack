@@ -131,15 +131,16 @@ class Handler:
 #     except KeyboardInterrupt:
 #         handler.cleanup()
 
-# test led
+# test button
 
 if __name__ == "__main__":
     handler = Handler()
     try:
         while True:
-            handler.led.on()
-            sleep(1)
-            handler.led.off()
-            sleep(1)
+            if handler.button.is_pressed():
+                handler.led.on()
+            else:
+                handler.led.off()
+            sleep(0.1)
     except KeyboardInterrupt:
         handler.cleanup()
