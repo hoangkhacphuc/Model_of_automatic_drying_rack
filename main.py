@@ -122,21 +122,32 @@ class Handler:
         self.ldr_sensor = LDR_Sensor(23)
         self.raindrop_sensor = Raindrop_Sensor(24)
         self.motor = Motor(25, 5, 6)
+        self.database = Database("localhost", "padmin", "12345678", "automatic_drying_rack")
     
     def run(self):
         self.led.off()
         self.motor.stop()
 
         while(1):
-            if self.motor.inside == false AND self.raindrop_sensor.is_wet():
-                self.motor.backward()
-                self.motor.inside = true
+            if self.light_sensor.is_light():
+                self.led.on()
+                # Cập nhật trạng thái lên database
+                self.database.query("UPDATE `current_status` SET `sunny` = '1' WHERE id = 1")
             else:
-                if self.motor.inside == false AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_dark():
-                    self.motor.backward()
-                    self.motor.inside = true
-            else:
-                if self.motor.inside == true AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_light():
+                self.led.off()
+                # Cập nhật trạng thái lên database
+                self.database.query("UPDATE `current_status` SET `sunny` = '0' WHERE id = 1")
+            sleep(1)
+
+            # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
+            #     self.motor.backward()
+            #     self.motor.inside = true
+            # else:
+            #     if self.motor.inside == false AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_dark():
+            #         self.motor.backward()
+            #         self.motor.inside = true
+            # else:
+            #     if self.motor.inside == true AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_light():
 
     def current_time():
         now = datetime.now()
