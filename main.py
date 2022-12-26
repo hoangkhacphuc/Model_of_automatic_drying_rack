@@ -44,10 +44,10 @@ class LDR_Sensor:
         GPIO.setup(self.pin, GPIO.IN)
 
     def is_dark(self):
-        return GPIO.input(self.pin) == GPIO.LOW
+        return GPIO.input(self.pin) == GPIO.HIGH
 
     def is_light(self):
-        return GPIO.input(self.pin) == GPIO.HIGH
+        return GPIO.input(self.pin) == GPIO.LOW
 
     def cleanup(self):
         GPIO.cleanup()
