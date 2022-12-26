@@ -129,16 +129,18 @@ class Handler:
 #     except KeyboardInterrupt:
 #         handler.cleanup()
 
-# test raindrop sensor
+# test motor
 
 if __name__ == "__main__":
     handler = Handler()
     try:
         while True:
-            if handler.raindrop_sensor.is_wet():
+            if handler.button.is_pressed():
                 handler.led.on()
+                handler.motor.forward()
             else:
                 handler.led.off()
+                handler.motor.stop()
             sleep(0.1)
     except KeyboardInterrupt:
         handler.cleanup()
