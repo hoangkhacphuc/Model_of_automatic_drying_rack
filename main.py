@@ -130,7 +130,7 @@ class Handler:
         self.motor.stop()
 
         while(1):
-            if self.light_sensor.is_light():
+            if self.ldr_sensor.is_light():
                 self.led.on()
                 # Cập nhật trạng thái lên database
                 self.database.query("UPDATE `current_status` SET `sunny` = '1' WHERE id = 1")
