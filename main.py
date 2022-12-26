@@ -57,10 +57,10 @@ class Raindrop_Sensor:
         GPIO.setup(self.pin, GPIO.IN)
 
     def is_dry(self):
-        return GPIO.input(self.pin) == GPIO.LOW
+        return GPIO.input(self.pin) == GPIO.HIGH
 
     def is_wet(self):
-        return GPIO.input(self.pin) == GPIO.HIGH
+        return GPIO.input(self.pin) == GPIO.LOW
 
     def cleanup(self):
         GPIO.cleanup()
