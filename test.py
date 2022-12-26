@@ -2,7 +2,6 @@ from time import sleep
 from datetime import datetime
 import mysql.connector
 
-
 class Database:
     def __init__(self, host, user, password, db):
         self.host = host
@@ -32,6 +31,7 @@ class Database:
             table,
             " AND ".join(["{}=%s".format(column) for column in conditions])
         )
+        print(query)
         self.cursor.execute(query, tuple(conditions.values()))
         return self.cursor.fetchall()
 
