@@ -77,7 +77,7 @@ class Motor:
         GPIO.setup(self.pin2, GPIO.OUT)
         self.pwm = GPIO.PWM(self.ena, 1000)
         self.pwm.start(75)
-        self.inside = true
+        self.inside = True
 
     def forward(self):
         GPIO.output(self.pin1, GPIO.HIGH)
