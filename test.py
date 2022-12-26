@@ -17,7 +17,7 @@ class Database:
         self.cursor = self.connection.cursor()
 
     def select(self, query):
-        self.cursor.execute(query, tuple(conditions.values()))
+        self.cursor.execute(query)
         return self.cursor.fetchall()
     def cleanup(self):
         self.connection.close()
