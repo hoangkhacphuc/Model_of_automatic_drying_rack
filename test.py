@@ -16,42 +16,9 @@ class Database:
         )
         self.cursor = self.connection.cursor()
 
-    def insert(self, table, columns, values):
-        query = "INSERT INTO {} ({}) VALUES ({})".format(
-            table,
-            ", ".join(columns),
-            ", ".join(["%s"] * len(values))
-        )
-        self.cursor.execute(query, values)
-        self.connection.commit()
-
-    def select(self, table, columns, conditions):
-        query = "SELECT {} FROM {} WHERE {}".format(
-            ", ".join(columns),
-            table,
-            " AND ".join(["{}=%s".format(column) for column in conditions])
-        )
-        print(query)
+    def select(self, query):
         self.cursor.execute(query, tuple(conditions.values()))
         return self.cursor.fetchall()
-
-    def update(self, table, columns, values, conditions):
-        query = "UPDATE {} SET {} WHERE {}".format(
-            table,
-            ", ".join(["{}=%s".format(column) for column in columns]),
-            " AND ".join(["{}=%s".format(column) for column in conditions])
-        )
-        self.cursor.execute(query, tuple(values + list(conditions.values())))
-        self.connection.commit()
-
-    def delete(self, table, conditions):
-        query = "DELETE FROM {} WHERE {}".format(
-            table,
-            " AND ".join(["{}=%s".format(column) for column in conditions])
-        )
-        self.cursor.execute(query, tuple(conditions.values()))
-        self.connection.commit()
-
     def cleanup(self):
         self.connection.close()
 
@@ -60,9 +27,7 @@ class Handler:
         self.database = Database("localhost", "padmin", "12345678", "automatic_drying_rack")
     
     def run(self):
-        # lấy dữ liệu trong bảng manager
-        manager = self.database.select("manager", ["*"], {})
-        # show dữ liệu trong bảng manager
+        manager = self.database.select("SELECT * FROM `manager`")
         print(manager)
 
     def current_time():
