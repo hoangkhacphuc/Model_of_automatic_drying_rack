@@ -132,13 +132,18 @@ class Handler:
 
         while(1):
             if self.ldr_sensor.is_light():
-                print("Light")
                 self.led.on()
                 self.database.query("UPDATE `current_status` SET `sunny` = '1' WHERE id = 1")
             else:
-                print("Dark")
                 self.led.off()
                 self.database.query("UPDATE `current_status` SET `sunny` = '0' WHERE id = 1")
+
+            if self.raindrop_sensor.is_wet():
+                print("Wet")
+                self.database.query("UPDATE `current_status` SET `raining` = '1' WHERE id = 1")
+            else:
+                print("Dry")
+                self.database.query("UPDATE `current_status` SET `raining` = '0' WHERE id = 1")
             sleep(1)
 
             # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
