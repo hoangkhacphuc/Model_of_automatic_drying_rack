@@ -28,8 +28,8 @@ class Handler:
     
     def run(self):
         manager = self.database.select("SELECT * FROM `manager`")
-        # in ra name tất cả
-        print(manager.name)
+        while row in manager:
+            print(row[1])
 
     def current_time():
         now = datetime.now()
