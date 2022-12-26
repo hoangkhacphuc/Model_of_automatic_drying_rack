@@ -193,9 +193,8 @@ class Server:
                 
 
 if __name__ == "__main__":
-    database = Database("localhost", "root", "", "automatic_drying_rack")
+    database = Database("localhost", "padmin", "12345678", "automatic_drying_rack")
     server = Server("localhost", 2424, database)
     handler = Handler()
     server.app.run(host=server.host, port=server.port, debug=True)
 
-    
