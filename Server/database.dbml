@@ -1,0 +1,41 @@
+Table manager
+{
+    id int [PK, increment]
+    name varchar(255)
+    username varchar(50)
+    password varchar(255)
+    created_at timestamp
+}
+
+Table accessories {
+    id int [pk, increment]
+    name varchar(255)
+}
+
+Table status {
+    id int [pk, increment]
+    name varchar(255)
+}
+
+Table history {
+    id int [pk, increment]
+    accessories_id int [ref: > accessories.id]
+    status_id int [ref: > status.id]
+    manager_id int [ref: > manager.id]
+    setting_id int [ref: > setting.id, NULL]
+    description varchar(255)
+    created_at timestamp
+}
+
+Table setting {
+    id int [pk, increment]
+    name varchar(255)
+    data varchar(500) [default: '', note: 'json data']
+}
+
+Table current_status {
+    id int [pk, increment]
+    open int [default: 0]
+    sunny int [default: 0]
+    raining int [default: 0]
+}

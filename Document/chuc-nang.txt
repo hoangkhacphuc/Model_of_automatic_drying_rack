@@ -3,7 +3,7 @@
 - Xem trạng thái:
 	- Đã đóng/mở - Đang đóng/mở
 	- Thời tiết:
-		- Nắng: Có/Không
+		- Nắng: Có/Không``
 		- Mưa: Có/Không
 	- Thời gian hiện tại
 - Xem lịch sử đóng mở

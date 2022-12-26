@@ -107,40 +107,95 @@ class Handler:
         self.raindrop_sensor.cleanup()
         self.motor.cleanup()
 
-# if __name__ == "__main__":
-#     handler = Handler()
-#     try:
-#         while True:
-#             if handler.button.is_pressed():
-#                 handler.led.on()
-#             else:
-#                 handler.led.off()
-#             if handler.ldr_sensor.is_dark():
-#                 handler.motor.forward()
-#                 handler.led.on()
-#             else:
-#                 handler.motor.stop()
-#             if handler.raindrop_sensor.is_wet():
-#                 handler.motor.backward()
-#                 handler.led.on()
-#             else:
-#                 handler.motor.stop()
-#             sleep(0.1)
-#     except KeyboardInterrupt:
-#         handler.cleanup()
+class Database:
+    def __init__(self, host, user, password, db):
+        self.host = host
+        self.user = user
+        self.password = password
+        self.db = db
+        self.connection = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            password=self.password,
+            database=self.db
+        )
+        self.cursor = self.connection.cursor()
 
-# test motor
+    def insert(self, table, columns, values):
+        query = "INSERT INTO {} ({}) VALUES ({})".format(
+            table,
+            ", ".join(columns),
+            ", ".join(["%s"] * len(values))
+        )
+        self.cursor.execute(query, values)
+        self.connection.commit()
+
+    def select(self, table, columns, conditions):
+        query = "SELECT {} FROM {} WHERE {}".format(
+            ", ".join(columns),
+            table,
+            " AND ".join(["{}=%s".format(column) for column in conditions])
+        )
+        self.cursor.execute(query, tuple(conditions.values()))
+        return self.cursor.fetchall()
+
+    def update(self, table, columns, values, conditions):
+        query = "UPDATE {} SET {} WHERE {}".format(
+            table,
+            ", ".join(["{}=%s".format(column) for column in columns]),
+            " AND ".join(["{}=%s".format(column) for column in conditions])
+        )
+        self.cursor.execute(query, tuple(values + list(conditions.values())))
+        self.connection.commit()
+
+    def delete(self, table, conditions):
+        query = "DELETE FROM {} WHERE {}".format(
+            table,
+            " AND ".join(["{}=%s".format(column) for column in conditions])
+        )
+        self.cursor.execute(query, tuple(conditions.values()))
+        self.connection.commit()
+
+    def cleanup(self):
+        self.connection.close()
+
+
+# Server API web
+class Server:
+    def __init__(self, host, port, database):
+        self.host = host
+        self.port = port
+        self.database = database
+        self.app = Flask(__name__)
+
+    def run(self):
+        self.app.run(host=self.host, port=self.port)
+    
+    # Hàm login để đăng nhập vào hệ thống, lấy access token và trả về json
+    @app.route("/login", methods=["POST"])
+    def login():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username and password:
+            result = database.select("manager", ["id", "username", "password"], {"username": username})
+            if result:
+                user = result[0]
+                if user[2] == password:
+                    token = jwt.encode({"id": user[0], "username": user[1]})
+                    return jsonify({"access_token": token})
+                else:
+                    return jsonify({"message": "Tài khoản mật khẩu không chính xác"})
+            else:
+                return jsonify({"message": "Tài khoản không tồn tại"})
+        else:
+            return jsonify({"message": "Vui lòng nhập đầy đủ thông tin"})
+
+                
 
 if __name__ == "__main__":
+    database = Database("localhost", "root", "", "automatic_drying_rack")
+    server = Server("localhost", 2424, database)
     handler = Handler()
-    try:
-        while True:
-            if handler.button.is_pressed():
-                handler.led.on()
-                handler.motor.forward()
-            else:
-                handler.led.off()
-                handler.motor.stop()
-            sleep(0.1)
-    except KeyboardInterrupt:
-        handler.cleanup()
+    server.app.run(host=server.host, port=server.port, debug=True)
+
+    
