@@ -112,7 +112,7 @@ class Database:
     def query(self, query):
         self.cursor.execute(query)
         self.connection.commit()
-        
+
 
     def cleanup(self):
         self.connection.close()
@@ -132,12 +132,12 @@ class Handler:
 
         while(1):
             if self.ldr_sensor.is_light():
+                print("Light")
                 self.led.on()
-                # Cập nhật trạng thái lên database
                 self.database.query("UPDATE `current_status` SET `sunny` = '1' WHERE id = 1")
             else:
+                print("Dark")
                 self.led.off()
-                # Cập nhật trạng thái lên database
                 self.database.query("UPDATE `current_status` SET `sunny` = '0' WHERE id = 1")
             sleep(1)
 
