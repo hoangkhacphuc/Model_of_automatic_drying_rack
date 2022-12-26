@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO          
 from time import sleep
+from datetime import datetime
 
 class LED:
     def __init__(self, pin):
@@ -76,6 +77,7 @@ class Motor:
         GPIO.setup(self.pin2, GPIO.OUT)
         self.pwm = GPIO.PWM(self.ena, 1000)
         self.pwm.start(75)
+        self.inside = true
 
     def forward(self):
         GPIO.output(self.pin1, GPIO.HIGH)
@@ -91,21 +93,6 @@ class Motor:
 
     def cleanup(self):
         GPIO.cleanup()
-
-class Handler:
-    def __init__(self):
-        self.led = LED(17)
-        self.button = Button(16)
-        self.ldr_sensor = LDR_Sensor(23)
-        self.raindrop_sensor = Raindrop_Sensor(24)
-        self.motor = Motor(25, 5, 6)
-
-    def cleanup(self):
-        self.led.cleanup()
-        self.button.cleanup()
-        self.ldr_sensor.cleanup()
-        self.raindrop_sensor.cleanup()
-        self.motor.cleanup()
 
 class Database:
     def __init__(self, host, user, password, db):
@@ -159,42 +146,44 @@ class Database:
     def cleanup(self):
         self.connection.close()
 
-
-# Server API web
-class Server:
-    def __init__(self, host, port, database):
-        self.host = host
-        self.port = port
-        self.database = database
-        self.app = Flask(__name__)
-
-    def run(self):
-        self.app.run(host=self.host, port=self.port)
+class Handler:
+    def __init__(self):
+        self.led = LED(17)
+        self.button = Button(16)
+        self.ldr_sensor = LDR_Sensor(23)
+        self.raindrop_sensor = Raindrop_Sensor(24)
+        self.motor = Motor(25, 5, 6)
     
-    # Hàm login để đăng nhập vào hệ thống, lấy access token và trả về json
-    @app.route("/login", methods=["POST"])
-    def login():
-        username = request.form.get("username")
-        password = request.form.get("password")
-        if username and password:
-            result = database.select("manager", ["id", "username", "password"], {"username": username})
-            if result:
-                user = result[0]
-                if user[2] == password:
-                    token = jwt.encode({"id": user[0], "username": user[1]})
-                    return jsonify({"access_token": token})
-                else:
-                    return jsonify({"message": "Tài khoản mật khẩu không chính xác"})
-            else:
-                return jsonify({"message": "Tài khoản không tồn tại"})
-        else:
-            return jsonify({"message": "Vui lòng nhập đầy đủ thông tin"})
+    def run(self):
+        self.led.off()
+        self.motor.stop()
 
-                
+        while(1):
+            if self.motor.inside == false AND self.raindrop_sensor.is_wet():
+                self.motor.backward()
+                self.motor.inside = true
+            else:
+                if self.motor.inside == false AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_dark():
+                    self.motor.backward()
+                    self.motor.inside = true
+            else:
+                if self.motor.inside == true AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_light():
+
+    def current_time():
+        now = datetime.now()
+        current = now.strftime("%H:%M:%S")
+        return current
+
+    def cleanup(self):
+        self.led.cleanup()
+        self.button.cleanup()
+        self.ldr_sensor.cleanup()
+        self.raindrop_sensor.cleanup()
+        self.motor.cleanup()
 
 if __name__ == "__main__":
-    database = Database("localhost", "padmin", "12345678", "automatic_drying_rack")
-    server = Server("localhost", 2424, database)
     handler = Handler()
-    server.app.run(host=server.host, port=server.port, debug=True)
-
+    try:
+        handler.run()
+    except KeyboardInterrupt:
+        handler.cleanup()
