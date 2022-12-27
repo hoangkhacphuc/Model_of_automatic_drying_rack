@@ -161,7 +161,7 @@ class Handler:
             close_time = json.loads(close_time)['close']
 
             a = self.motor.inside
-            b = self.check_time(open_time, close_time)
+            b = self.check_time(open_time, close_time, self.current_time())
             c = self.raindrop_sensor.is_wet()
             d = self.ldr_sensor.is_light()
             e = self.turn_off
