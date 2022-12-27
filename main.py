@@ -222,7 +222,7 @@ class Handler:
                 self.running = True
                 sleep(2.5)
                 self.motor.stop()
-                self.motor.inside = True
+                self.motor.inside = False
                 self.led.off()
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('4', 'Thời tiết tốt để đồ');")
