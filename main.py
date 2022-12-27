@@ -25,17 +25,17 @@ class LED:
     def cleanup(self):
         GPIO.cleanup()
 
-class Button:
-    def __init__(self, pin):
-        self.pin = pin
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# class Button:
+#     def __init__(self, pin):
+#         self.pin = pin
+#         GPIO.setmode(GPIO.BCM)
+#         GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    def is_pressed(self):
-        return GPIO.input(self.pin) == GPIO.HIGH
+#     def is_pressed(self):
+#         return GPIO.input(self.pin) == GPIO.HIGH
 
-    def cleanup(self):
-        GPIO.cleanup()
+#     def cleanup(self):
+#         GPIO.cleanup()
 
 class LDR_Sensor:
     def __init__(self, pin):
@@ -113,6 +113,10 @@ class Database:
         self.cursor.execute(query)
         self.connection.commit()
 
+    def get(self, query):
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
 
     def cleanup(self):
         self.connection.close()
@@ -120,7 +124,7 @@ class Database:
 class Handler:
     def __init__(self):
         self.led = LED(17)
-        self.button = Button(16)
+        # self.button = Button(16)
         self.ldr_sensor = LDR_Sensor(23)
         self.raindrop_sensor = Raindrop_Sensor(24)
         self.motor = Motor(25, 5, 6)
@@ -142,9 +146,13 @@ class Handler:
                 self.database.query("UPDATE `current_status` SET `raining` = '1' WHERE id = 1")
             else:
                 self.database.query("UPDATE `current_status` SET `raining` = '0' WHERE id = 1")
-            sleep(1)
 
             # TO DO: trường hợp đang nắng, nhưng người dùng muốn thu quần áo vào trong
+            # Lấy dữ liệu từ database
+            current_status = self.database.get("SELECT * FROM `current_status` WHERE id = 1")
+            turn_off = current_status[0][4]
+
+            print("turn_off: ", turn_off)
 
             # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
             #     self.motor.backward()
@@ -155,6 +163,7 @@ class Handler:
             #         self.motor.inside = true
             # else:
             #     if self.motor.inside == true AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_light():
+            sleep(1)
 
     def current_time():
         now = datetime.now()
