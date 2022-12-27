@@ -255,7 +255,7 @@ function updateAction()
         return;
     }
 
-    $sql = "UPDATE `current_status` SET `turn_off` = '$action'";
+    $sql = "UPDATE `current_status` SET `turn_off` = '".($action ? 0 : 1)."'";
     $result = $conn->query($sql);
 
     $description = ($action ? 'Phơi đồ' : 'Thu đồ') . ' thủ công';
