@@ -139,12 +139,12 @@ class Handler:
                 self.database.query("UPDATE `current_status` SET `sunny` = '0' WHERE id = 1")
 
             if self.raindrop_sensor.is_wet():
-                print("Wet")
                 self.database.query("UPDATE `current_status` SET `raining` = '1' WHERE id = 1")
             else:
-                print("Dry")
                 self.database.query("UPDATE `current_status` SET `raining` = '0' WHERE id = 1")
             sleep(1)
+
+            # TO DO: trường hợp đang nắng, nhưng người dùng muốn thu quần áo vào trong
 
             # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
             #     self.motor.backward()

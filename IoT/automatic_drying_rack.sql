@@ -5,10 +5,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+DROP DATABASE IF EXISTS `automatic_drying_rack`;
 CREATE DATABASE IF NOT EXISTS `automatic_drying_rack` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `automatic_drying_rack`;
 
-DROP TABLE IF EXISTS `accessories`;
 CREATE TABLE IF NOT EXISTS `accessories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -21,19 +21,18 @@ INSERT INTO `accessories` (`id`, `name`) VALUES
 (3, 'Motor'),
 (4, 'Thời gian');
 
-DROP TABLE IF EXISTS `current_status`;
 CREATE TABLE IF NOT EXISTS `current_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `open` int(11) DEFAULT 0,
   `sunny` int(11) DEFAULT 0,
   `raining` int(11) DEFAULT 0,
+  `turn_off` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `current_status` (`id`, `open`, `sunny`, `raining`) VALUES
-(1, 1, 1, 0);
+INSERT INTO `current_status` (`id`, `open`, `sunny`, `raining`, `turn_off`) VALUES
+(1, 1, 1, 0, 0);
 
-DROP TABLE IF EXISTS `history`;
 CREATE TABLE IF NOT EXISTS `history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `accessories_id` int(11) DEFAULT NULL,
@@ -75,7 +74,6 @@ INSERT INTO `history` (`id`, `accessories_id`, `status_id`, `manager_id`, `setti
 (43, NULL, 2, NULL, NULL, 'Thu đồ thủ công', '2022-12-27 03:26:56'),
 (44, NULL, 4, NULL, NULL, 'Phơi đồ thủ công', '2022-12-27 03:26:58');
 
-DROP TABLE IF EXISTS `manager`;
 CREATE TABLE IF NOT EXISTS `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -91,7 +89,6 @@ INSERT INTO `manager` (`id`, `name`, `username`, `password`, `created_at`) VALUE
 (3, 'Nguyễn Đức Duy', 'nguyenducduy', 'e10adc3949ba59abbe56e057f20f883e', '2022-12-26 18:44:19'),
 (4, 'Đường Ngọc Hà', 'duongngocha', 'e10adc3949ba59abbe56e057f20f883e', '2022-12-26 18:44:19');
 
-DROP TABLE IF EXISTS `setting`;
 CREATE TABLE IF NOT EXISTS `setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -103,7 +100,6 @@ INSERT INTO `setting` (`id`, `name`, `data`) VALUES
 (1, 'Thời gian mở', '{\"open\":\"02:00\"}'),
 (2, 'Thời gian đóng', '{\"close\":\"19:00:00\"}');
 
-DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
