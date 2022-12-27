@@ -161,7 +161,7 @@ class Handler:
             close_time = json.loads(close_time)['close']
 
             a = self.motor.inside
-            b = self.check_time(open_time, close_time, self.current_time())
+            b = self.check_time(open_time, close_time)
             c = self.raindrop_sensor.is_wet()
             d = self.ldr_sensor.is_light()
             e = self.turn_off
@@ -224,16 +224,12 @@ class Handler:
             
             # nothing
             sleep(1)
-
-    def current_time():
-        now = datetime.now()
-        current = now.strftime("%H:%M:%S")
-        return current
     
-    def check_time(open, close, current):
+    def check_time(open, close):
         open = datetime.strptime(open, "%H:%M:%S").time()
         close = datetime.strptime(close, "%H:%M:%S").time()
-        current = datetime.strptime(current, "%H:%M:%S").time()
+        now = datetime.now()
+        current = now.strftime("%H:%M:%S")
 
         if current >= open and current <= close:
             return True
