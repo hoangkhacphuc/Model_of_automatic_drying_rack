@@ -226,6 +226,11 @@ class Handler:
             sleep(1)
     
     def check_time(self, open, close):
+        if len(open) == 5:
+            open = open + ":00"
+        if len(close) == 5:
+            close = close + ":00"
+
         open = datetime.strptime(open, "%H:%M:%S").time()
         close = datetime.strptime(close, "%H:%M:%S").time()
         now = datetime.now()
