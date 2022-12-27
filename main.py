@@ -225,7 +225,7 @@ class Handler:
             # nothing
             sleep(1)
     
-    def check_time(open, close):
+    def check_time(self, open, close):
         open = datetime.strptime(open, "%H:%M:%S").time()
         close = datetime.strptime(close, "%H:%M:%S").time()
         now = datetime.now()
