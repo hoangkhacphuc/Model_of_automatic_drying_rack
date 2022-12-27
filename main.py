@@ -234,7 +234,7 @@ class Handler:
         open = datetime.strptime(open, "%H:%M:%S").time()
         close = datetime.strptime(close, "%H:%M:%S").time()
         now = datetime.now()
-        current = now.strftime("%H:%M:%S")
+        current = now.strftime("%H:%M:%S").time()
 
         if current >= open and current <= close:
             return True
