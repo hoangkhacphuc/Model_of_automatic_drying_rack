@@ -166,6 +166,8 @@ class Handler:
             d = self.ldr_sensor.is_light()
             e = turn_off
 
+            print(a, b, c, d, e)
+
             if not a and c:
                 self.motor.backward()
                 self.led.on()
