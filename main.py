@@ -230,8 +230,11 @@ class Handler:
         current = now.strftime("%H:%M:%S")
         return current
     
-    def check_time(open, close):
-        current = self.current_time()
+    def check_time(open, close, current):
+        open = datetime.strptime(open, "%H:%M:%S").time()
+        close = datetime.strptime(close, "%H:%M:%S").time()
+        current = datetime.strptime(current, "%H:%M:%S").time()
+
         if current >= open and current <= close:
             return True
         else:
