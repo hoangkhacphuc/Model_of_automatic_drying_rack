@@ -152,7 +152,13 @@ class Handler:
             current_status = self.database.get("SELECT * FROM `current_status` WHERE id = 1")
             turn_off = current_status[0][4]
 
-            print("turn_off: ", turn_off)
+            # Lấy thời gian ở setting
+            setting = self.database.get("SELECT * FROM `setting`")
+            open_time = setting[0][2]
+            close_time = setting[1][2]
+
+            print("Open time: ", open_time)
+            print("Close time: ", close_time)
 
             # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
             #     self.motor.backward()
