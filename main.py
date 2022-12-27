@@ -89,6 +89,7 @@ class Motor:
         GPIO.output(self.pin1, GPIO.LOW)
         GPIO.output(self.pin2, GPIO.HIGH)
 
+
     def stop(self):
         GPIO.output(self.pin1, GPIO.LOW)
         GPIO.output(self.pin2, GPIO.LOW)
@@ -130,6 +131,7 @@ class Handler:
         self.raindrop_sensor = Raindrop_Sensor(24)
         self.motor = Motor(25, 5, 6)
         self.database = Database("localhost", "padmin", "12345678", "automatic_drying_rack")
+        self.running = False
     
     def run(self):
         self.led.off()
@@ -148,12 +150,9 @@ class Handler:
             else:
                 self.database.query("UPDATE `current_status` SET `raining` = '0' WHERE id = 1")
 
-            # TO DO: trường hợp đang nắng, nhưng người dùng muốn thu quần áo vào trong
-            # Lấy dữ liệu từ database
             current_status = self.database.get("SELECT * FROM `current_status` WHERE id = 1")
             turn_off = current_status[0][4]
 
-            # Lấy thời gian ở setting
             setting = self.database.get("SELECT * FROM `setting`")
             open_time = setting[0][2]
             close_time = setting[1][2]
@@ -161,23 +160,82 @@ class Handler:
             open_time = json.loads(open_time)['open']
             close_time = json.loads(close_time)['close']
 
-            print("open_time: ", open_time)
-            print("close_time: ", close_time)
-            # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
-            #     self.motor.backward()
-            #     self.motor.inside = true
-            # else:
-            #     if self.motor.inside == false AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_dark():
-            #         self.motor.backward()
-            #         self.motor.inside = true
-            # else:
-            #     if self.motor.inside == true AND self.raindrop_sensor.is_dry() AND self.ldr_sensor.is_light():
+            a = self.motor.inside
+            b = self.check_time(open_time, close_time)
+            c = self.raindrop_sensor.is_wet()
+            d = self.ldr_sensor.is_light()
+            e = self.turn_off
+
+            if not a AND c:
+                self.motor.backward()
+                self.led.on()
+                self.running = True
+                sleep(2.5)
+                self.motor.stop()
+                self.motor.inside = True
+                self.led.off()
+                self.running = False
+                self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời mưa thu quần áo');")
+                self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+            elif not a AND not b:
+                self.motor.backward()
+                self.led.on()
+                self.running = True
+                sleep(2.5)
+                self.motor.stop()
+                self.motor.inside = True
+                self.led.off()
+                self.running = False
+                self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Tới thời gian thu quần áo');")
+                self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+            elif not a AND not d:
+                self.motor.backward()
+                self.led.on()
+                self.running = True
+                sleep(2.5)
+                self.motor.stop()
+                self.motor.inside = True
+                self.led.off()
+                self.running = False
+                self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời tối thu quần áo');")
+                self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+            elif not a AND b AND not c AND d AND e:
+                self.motor.backward()
+                self.led.on()
+                self.running = True
+                sleep(2.5)
+                self.motor.stop()
+                self.motor.inside = True
+                self.led.off()
+                self.running = False
+                self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Thu đồ thủ công');")
+                self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+            elif a AND b AND not c AND d AND not e:
+                self.motor.forward()
+                self.led.on()
+                self.running = True
+                sleep(2.5)
+                self.motor.stop()
+                self.motor.inside = True
+                self.led.off()
+                self.running = False
+                self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('4', 'Thời tiết tốt để đồ');")
+                self.database.query("UPDATE `current_status` SET `open` = '1' WHERE id = 1")
+            elif a AND b AND not c AND d AND e:
+                # nothing
             sleep(1)
 
     def current_time():
         now = datetime.now()
         current = now.strftime("%H:%M:%S")
         return current
+    
+    def check_time(open, close):
+        current = current_time()
+        if current >= open and current <= close:
+            return True
+        else:
+            return False
 
     def cleanup(self):
         self.led.cleanup()
