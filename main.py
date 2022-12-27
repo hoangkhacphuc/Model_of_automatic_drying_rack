@@ -221,8 +221,8 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('4', 'Thời tiết tốt để đồ');")
                 self.database.query("UPDATE `current_status` SET `open` = '1' WHERE id = 1")
-            elif a and b and not c and d and e:
-                # nothing
+            
+            # nothing
             sleep(1)
 
     def current_time():
