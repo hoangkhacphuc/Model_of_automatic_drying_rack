@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 import mysql.connector
 from datetime import datetime
+import json
 
 class LED:
     def __init__(self, pin):
@@ -157,9 +158,11 @@ class Handler:
             open_time = setting[0][2]
             close_time = setting[1][2]
 
-            print("Open time: ", open_time)
-            print("Close time: ", close_time)
+            open_time = json.loads(open_time)['open']
+            close_time = json.loads(close_time)['close']
 
+            print("open_time: ", open_time)
+            print("close_time: ", close_time)
             # if self.motor.inside == false AND self.raindrop_sensor.is_wet():
             #     self.motor.backward()
             #     self.motor.inside = true
