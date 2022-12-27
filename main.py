@@ -164,7 +164,7 @@ class Handler:
             b = self.check_time(open_time, close_time)
             c = self.raindrop_sensor.is_wet()
             d = self.ldr_sensor.is_light()
-            e = self.turn_off
+            e = turn_off
 
             if not a and c:
                 self.motor.backward()
