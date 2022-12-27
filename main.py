@@ -177,6 +177,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời mưa thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+                print(1)
             elif not a and not b:
                 self.motor.backward()
                 self.led.on()
@@ -188,6 +189,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Tới thời gian thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+                print(2)
             elif not a and not d:
                 self.motor.backward()
                 self.led.on()
@@ -199,6 +201,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời tối thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+                print(3)
             elif not a and b and not c and d and e:
                 self.motor.backward()
                 self.led.on()
@@ -210,6 +213,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Thu đồ thủ công');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
+                print(4)
             elif a and b and not c and d and not e:
                 self.motor.forward()
                 self.led.on()
@@ -221,7 +225,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('4', 'Thời tiết tốt để đồ');")
                 self.database.query("UPDATE `current_status` SET `open` = '1' WHERE id = 1")
-            
+                print(5)
             # nothing
             sleep(1)
     
