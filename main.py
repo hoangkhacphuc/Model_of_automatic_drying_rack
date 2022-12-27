@@ -231,7 +231,7 @@ class Handler:
         return current
     
     def check_time(open, close):
-        current = current_time()
+        current = self.current_time()
         if current >= open and current <= close:
             return True
         else:
