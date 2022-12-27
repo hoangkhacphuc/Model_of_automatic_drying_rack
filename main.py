@@ -166,7 +166,7 @@ class Handler:
             d = self.ldr_sensor.is_light()
             e = self.turn_off
 
-            if not a AND c:
+            if not a and c:
                 self.motor.backward()
                 self.led.on()
                 self.running = True
@@ -177,7 +177,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời mưa thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
-            elif not a AND not b:
+            elif not a and not b:
                 self.motor.backward()
                 self.led.on()
                 self.running = True
@@ -188,7 +188,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Tới thời gian thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
-            elif not a AND not d:
+            elif not a and not d:
                 self.motor.backward()
                 self.led.on()
                 self.running = True
@@ -199,7 +199,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Trời tối thu quần áo');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
-            elif not a AND b AND not c AND d AND e:
+            elif not a and b and not c and d and e:
                 self.motor.backward()
                 self.led.on()
                 self.running = True
@@ -210,7 +210,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('1', 'Thu đồ thủ công');")
                 self.database.query("UPDATE `current_status` SET `open` = '0' WHERE id = 1")
-            elif a AND b AND not c AND d AND not e:
+            elif a and b and not c and d and not e:
                 self.motor.forward()
                 self.led.on()
                 self.running = True
@@ -221,7 +221,7 @@ class Handler:
                 self.running = False
                 self.database.query("INSERT INTO `history` (`status_id`, `description`) VALUES ('4', 'Thời tiết tốt để đồ');")
                 self.database.query("UPDATE `current_status` SET `open` = '1' WHERE id = 1")
-            elif a AND b AND not c AND d AND e:
+            elif a and b and not c and d and e:
                 # nothing
             sleep(1)
 
